@@ -131,6 +131,7 @@ const products = [
                 category: item.name, 
                 product: products.filter(c => c.category === item.id).reduce((prev, act) => prev.price > act.price ? prev : act)
             }
+            
           });
 
           return result;
@@ -140,7 +141,7 @@ const products = [
 
     // 3 ¿Exite algún producto de tipo Electronico que cueste $100?
     function productPriceHigher100(){
-        return products.filter(product => product.category === 1 && product.price === 100)
+        return products.filter(product => product.category === 1 && product.price === 100);
     }
 
 
@@ -149,60 +150,61 @@ const products = [
 
     //4 - Obtener todos los productos que en nombre tengan las letra S. 
     function productsNameContainS(){
-        return products.filter(product => product.name.includes('s'))
+        return products.filter(product => product.name.includes('s'));
     }
 
     console.log(productsNameContainS());
 
     /// 5 - Crear un arreglo de objetos con la siguiente información: 
     /// { productId: 7 ,nameProduct: 'keyboard', category: 'Electronic', discount: '10', applyDiscount: true}
-    function arrayObjectObject(){
-        const nuevoArreglo = []
+    function arrayObject(){
+        const array = []
         categories.map(category => { 
             products.filter(product =>{
                 if(product.category === category.id){
-                discountsHolyDays.map(discount =>{
-                    if(discount.category === product.category){
-                    nuevoArreglo.push({
-                        productId: product.productId,
-                        nameProduct: product.name,
-                        category: category.name,
-                        discount: discount.value,
-                        applyDiscount: discount.discountApply
-                    })
-                    }
-                })
+                    discountsHolyDays.map(discount =>{
+                        if(discount.category === product.category){
+                            array.push({
+                                productId: product.productId,
+                                nameProduct: product.name,
+                                category: category.name,
+                                discount: discount.value,
+                                applyDiscount: discount.discountApply
+                            });
+                        }
+                    });
                 } 
-            })  
-        })
-        return nuevoArreglo;
+            });
+        });
+
+        return array;
     }
 
-    console.log(arrayObjectObject());
+    console.log(arrayObject());
 
     //6 Crear un arreglo de objetos con la siguiente información: { productId: 7, priceWithDiscount: 45}
     function productsWithDiscount(){
-    const nuevoArreglo = []
-    categories.map(category => { 
-        products.filter(product =>{
-            if(product.category === category.id){
-            discountsHolyDays.map(discount =>{
-                if(discount.category === product.category){
-                nuevoArreglo.push({
-                    productId:product.productId,
-                    priceWithDiscount:calculateDiscount(product.price,discount.value)
-                })
-                }
-            })
-            } 
-        })  
-    })
-    return nuevoArreglo;
+        const arrayProductsWithDiscount = []
+        categories.map(category => { 
+            products.filter(product =>{
+                if(product.category === category.id){
+                    arrayProductsWithDiscount.map(discount =>{
+                        if(discount.category === product.category){
+                            arraProductsWithDiscount.push({
+                                productId:product.productId,
+                                priceWithDiscount:calculateDiscount(product.price,discount.value)
+                            });
+                        }
+                    });
+                } 
+            });
+        });
+
+        return arrayProductsWithDiscount;
     }
 
-    function calculateDiscount(price,discount){
-        let descu =(discount/100)*price
-         return  price-descu
+    function calculateDiscount(price, discount){
+        return  (discount / 100) * price;
     }
      
     console.log(productsWithDiscount());
@@ -210,12 +212,12 @@ const products = [
     //7. Agregar los siguientes productos, y crear un arreglo con el resultado, ejemplo: [{id: 9, status: 'succes', id:10: status: 'error': message: 'error message'}];
     function addProducts(){
         const arrayNew = [];
-
+        
         newProducts.forEach(element => {
             if(checkProductExists(arrayNew, element.id))
-                arrayNew.push({id: element.id, status: 'error', message: 'key duplicated'})
+                arrayNew.push({id: element.id, status: 'error', message: 'key duplicated'});
             else
-                arrayNew.push({id: element.id, status: 'sucess', message: 'Agregado correctamente'})
+                arrayNew.push({id: element.id, status: 'sucess', message: 'Agregado correctamente'});
         });
 
         return arrayNew;
@@ -223,7 +225,7 @@ const products = [
 
 
     function checkProductExists(arrayNew, productId){
-        return arrayNew.some(s => s.id === productId)
+        return arrayNew.some(s => s.id === productId);
     }
 
     console.log(addProducts());
